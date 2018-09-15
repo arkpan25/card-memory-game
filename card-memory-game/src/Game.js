@@ -1,4 +1,7 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+import "./components/GameBoard";
+import { GameBoard } from './components/GameBoard';
+
 
 export class Game extends Component {
 
@@ -6,31 +9,28 @@ export class Game extends Component {
 		super(props);
 
 	}
-
 	render () {
-
-
 		return (
 			<div>
-				 <section class="score-panel">
-			          <div class="star-rating">
-			        	  <ul class="stars">
-			        		  <li><i class="fa fa-star" id="starThree"></i></li>
-			        		  <li><i class="fa fa-star" id="starTwo"></i></li>
-			        		  <li><i class="fa fa-star" id="starOne"></i></li>
+				 <section className="score-panel">
+			          <div className="star-rating">
+			        	  <ul className="stars">
+			        		  <li><i className="fa fa-star" id="starThree"></i></li>
+			        		  <li><i className="fa fa-star" id="starTwo"></i></li>
+			        		  <li><i className="fa fa-star" id="starOne"></i></li>
 			          	</ul>
 
-			          	<span class="moves" id="moves">0</span><span id="movesText"> Moves</span>
+			          	<span className="moves" id="moves">0</span><span> Moves</span>
 			          </div>
 			          <div id="timer"><span id="timer-text">Timer: </span>
-			            <label class="minutes">00</label>:<label class="seconds">00</label></div>
-			          <div class="restart" id="restart">
-			        		<span id="restart-text">Restart: </span><i class="fa fa-repeat"></i>
-			        	</div>
-        			</section>				
+			            <label >00</label>:<label >00</label></div>
+			          <div className="restart" id="restart">
+			        		<span id="restart-text">Restart: </span><i className="fa fa-repeat"></i>
+			          </div>
+        		</section>	
+					<GameBoard/>			
 			</div>
 			)
-
 	}
 
 }
