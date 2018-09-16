@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import "./components/GameBoard";
 import { GameBoard } from './components/GameBoard';
+import Timer from './containers/Timer';
 
 const totNum = 36;
 let cardArray = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-gear",  "fa-cube", 
@@ -8,6 +9,7 @@ let cardArray = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-gear",  "fa-
 				"fa-birthday-cake","fa-imdb","fa-beer","fa-fighter-jet","fa-flag","fa-flash","fa-car"];
 
 export class Game extends Component {
+
 
 	constructor(props) {
 		super(props);
@@ -17,10 +19,9 @@ export class Game extends Component {
 
 	initialState() {
 
-        let cardNum=9;
 		return {
 			DiffficultyLevel: "Hard",
-			deck: this.shuffleDeck(cardNum),
+			deck: this.shuffleDeck(18),
 			moves: 0,
 			score: 0,
 			BestScore:0,
@@ -32,7 +33,9 @@ export class Game extends Component {
 
 	restart = () => {
         // this.child.handleResetClick();
-        // this.child.handleStartClick();
+		// this.child.handleStartClick();
+		this.child.resetTimer();
+		this.child.startTimer();
 		this.setState(this.initialState());
 	}
 
@@ -41,17 +44,17 @@ export class Game extends Component {
 		const cardSelectedId = this.state.selected.splice(0);
 				
 		//debugger;
-        // if(this.state.moves>1){
-        //     this.refs.timer.handleStartClick()
-        // }
+        
+        // if (this.state.moves == 1) {
+		// 	this.child.startTimer();
+		// }
 		// early return in case cards been selected this round or the timer is 'on' || this.resetTime
-		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)
-		 || this.state.selected > 1) {
+		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)) {
 			return;
 		}
 		cardSelectedId.push(cardId);
 		if(cardSelectedId.length === 2) {
-			this.resetTime = setTimeout(() => {
+			this.checkTime = setTimeout(() => {
 				this.checkMatch(cardSelectedId);
 			}, 1000);
 		} 
@@ -65,6 +68,10 @@ export class Game extends Component {
 	getRandomIdx = (arr) => {	
 		return Math.floor(Math.random()*(arr.length));
 	}
+
+	onRef = (ref) => {
+        this.child = ref
+    }
 
 	pickCards = (num) => {
 
@@ -156,17 +163,18 @@ export class Game extends Component {
 			          	<span className="moves" id="moves">{this.state.moves}</span><span> Moves</span>
 			          </div>
 					  <div>
-					  	<span className = "red pa1"> Diffficulty Level :</span>
+					  	<span className = "red pa1" > Diffficulty Level :</span>
 					  	<a onClick={() => this.changeDifficulty("Easy") } name="Easy" 
-                           className="pa2 hover-green black grow pointer">Easy</a>
+                           className=	{`pa2 hover-green black grow pointer 
+						   ${this.state.DiffficultyLevel === "Easy" ? "green underline": " "}`}>Easy</a>
                         <a onClick={() => this.changeDifficulty("Hard")} name="Hard" 
-                           className="pa2 hover-red black grow pointer ">Hard</a>
+                           className={`pa2 hover-red black grow pointer 
+						   ${this.state.DiffficultyLevel === "Easy" ? " ": "red underline"}`}>Hard</a>
 					  </div>
 					  <div>
 						  <span className = "blue">Current Score: </span><label className = "green" >{this.state.score}</label>
 					  </div>
-			          <div id="timer"><span id="timer-text">Timer: </span>
-			            <label >00</label>:<label >00</label></div>
+			          <Timer onRef={this.onRef}/>
 			          <div className="restart" id="restart">
 			        		<span id="restart-text">Restart: </span>
 							<i onClick = {this.restart} className="fa fa-repeat grow-large"></i>

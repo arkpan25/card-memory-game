@@ -15,7 +15,9 @@
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 1.75em;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 20px;
 }
 
 .App-intro {
@@ -211,63 +213,16 @@ h1 {
   font-weight: bolder;
 }
 
-.popup-content h3 {
-  font-weight: normal;
-  color: #4f4f4f;
-}
-
-#play-again-btn {
-  background-color: #8c4ed6;
-  color: white;
-  font-size: 16px;
-  font-weight: normal;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 8px;
-  margin-top: 15px;
-  box-shadow: 7px 7px 30px #999999;
-  transition: box-shadow 0.5s;
-}
-
-#play-again-btn:hover {
-  box-shadow: 3px 3px 8px #6F6F6F;
-  background-color: #9759E3;
-  cursor: pointer;
-}
-
-#star-rating-text {
-  padding-left: 15px;
-}
-
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/*
- * Media queries
- */
-
 @media only screen and (max-width: 780px) {
   .deck {
-    max-width: 300px;
+    max-width: 518px;
     min-height: auto;
     padding-bottom: 17px;
   }
 
   .deck .card {
-    height: 50px;
-    width: 50px;
+    height: 65px;
+    width: 65px;
     margin-bottom: 17px;
   }
 
