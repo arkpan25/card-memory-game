@@ -3,8 +3,9 @@ import React , {Component} from 'react';
 
 export class Timer extends Component {
 
-    componentDidMount(){
+    componentDidMount(){        
         this.props.onRef(this)
+        debugger;
     }
 
     constructor(props) {
@@ -12,28 +13,32 @@ export class Timer extends Component {
         this.state = {
             seconds: 0,
             minutes: 0,
+            start: 0
         }
-        this.start = 0;
+        //this.start = 0;
     }
     format  = (val) => val > 9 ? val : "0" + val
 
     startTimer = () => {
-        let {seconds,minutes} = this.state;
+        let {seconds,minutes,start} = this.state;
         this.timer = setInterval(() => {
-            seconds = this.format(++this.start % 60);
-            minutes = this.format(parseInt(this.start / 60, 10));    
-            this.setState({seconds,minutes});       
+            seconds = this.format(++start % 60);
+            minutes = this.format(parseInt( start / 60, 10));    
+            this.setState({seconds,minutes,start});       
         }, 1000)
         
     }
+
+    timerStop = () => clearInterval(this.timer)
 
     resetTimer = () => {
         clearInterval(this.timer);
         this.setState({
             seconds: 0,
             minutes: 0,
+            start: 0
         });
-        this.start = 0;
+        //this.start = 0;
     }
 
     render () {

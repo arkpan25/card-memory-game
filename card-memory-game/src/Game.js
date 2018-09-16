@@ -14,41 +14,39 @@ export class Game extends Component {
 	constructor(props) {
 		super(props);
 		this.state = this.initialState();
-
 	}
 
 	initialState() {
 
+		let BestScore = localStorage.getItem("BestScore");
+		BestScore = BestScore ? JSON.parse(BestScore) : 0;
 		return {
 			DiffficultyLevel: "Hard",
 			deck: this.shuffleDeck(18),
+			isOn: true,
 			moves: 0,
 			score: 0,
-			BestScore:0,
+			clicks:0,
+			BestScore,
 			pairs: [],            
 			selected: [],
-            endMsg:  ''
+            gameInfo:  ''
 		};
 	}
 
 	restart = () => {
-        // this.child.handleResetClick();
-		// this.child.handleStartClick();
 		this.child.resetTimer();
-		this.child.startTimer();
 		this.setState(this.initialState());
 	}
 
 	clickHandler = (cardId) => {
 		
 		const cardSelectedId = this.state.selected.splice(0);
-				
-		//debugger;
-        
-        // if (this.state.moves == 1) {
-		// 	this.child.startTimer();
-		// }
-		// early return in case cards been selected this round or the timer is 'on' || this.resetTime
+		let clicks = this.state.clicks;	
+		if (++clicks == 1) {
+			this.child.startTimer();
+			//debugger;
+		}
 		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)) {
 			return;
 		}
@@ -59,9 +57,7 @@ export class Game extends Component {
 			}, 1000);
 		} 
 		//debugger;
-		this.setState({selected: cardSelectedId});
-		
-    // console.log(cid, 'PROPS', this.state.selected);
+		this.setState({selected: cardSelectedId,clicks});
 		
     }
 
@@ -69,9 +65,7 @@ export class Game extends Component {
 		return Math.floor(Math.random()*(arr.length));
 	}
 
-	onRef = (ref) => {
-        this.child = ref
-    }
+	onRef = (ref) => {this.child = ref}
 
 	pickCards = (num) => {
 
@@ -114,16 +108,23 @@ export class Game extends Component {
 			pairs,
 			score
 		});
-		// this.resetTime = null;
-        // console.log(this.state.pairs.length)
+		this.checkEnd(BestScore,score);		
+	}
+
+	checkEnd = (BestScore,score) => {
+		let gameInfo = "";
 		if(this.state.pairs.length === this.state.deck.length) {
+			if (score > BestScore) {
+				BestScore = score;
+				gameInfo = 'Congratulations You Broke the Record !!!';
+			} else gameInfo = 'Congratulations You win !';
 			this.setState({
-				endMsg: 'You win !!!!'
+				isOn:false,
+				gameInfo,
+				BestScore
 			});
-            alert("You Win. Game will restart in 5 seconds")
-			const newGame = setTimeout(() => {
-				this.restart();
-			}, 5000);
+			this.child.timerStop();
+			localStorage.setItem("BestScore",JSON.stringify(this.state.BestScore));
 		}
 	}
 
@@ -135,8 +136,7 @@ export class Game extends Component {
         this.restart();
 		if (DiffficultyLevel === "Easy"){
 			this.setState({deck:this.shuffleDeck(9),DiffficultyLevel})
-		} else this.setState({deck:this.shuffleDeck(18),DiffficultyLevel})        
-    //   console.log(this.state)     
+		} else this.setState({deck:this.shuffleDeck(18),DiffficultyLevel})          
     }
 	
 	shuffleDeck = (num) => {
@@ -155,9 +155,11 @@ export class Game extends Component {
                                      clickHandler={this.clickHandler.bind(this)} 
                                      selected={this.state.selected}
                                      pairs={this.state.pairs} />
+	    const finalScore = this.state.isOn ? " " : " your is final Score is "  + this.state.score
 		return (
 			<div className = "mt4">
 				<label className = "f1 yellow" >Best Score:<span>{this.state.BestScore}</span></label>
+				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>
 				 <section className="score-panel">
 			          <div className="moves">
 			          	<span className="moves" id="moves">{this.state.moves}</span><span> Moves</span>
