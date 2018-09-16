@@ -96,7 +96,7 @@ export class Game extends Component {
 
 		if(cardSelected[0] === cardSelected[1] && cardSelected.length > 0) {
 			pairs = pairs.concat(cardSelectedId);
-			debugger;
+			//debugger;
 			isMatch = true;
 		}
 		score = this.updateScore(score,DiffficultyLevel,isMatch);
