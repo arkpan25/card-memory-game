@@ -1,2 +1,13 @@
-# CODING-CHALLENGE-Illumio
-Create a Memory Game that is Playable in the browser
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+Below you will find some information on how to perform common tasks.<br>
+You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+
+## To run:
+```
+npm install
+```
+```
+npm start
+```
