@@ -30,3 +30,9 @@ npm install
 ```
 npm start
 ```
+
+## To run:
+
+```
+npm run build
+```
