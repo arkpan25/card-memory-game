@@ -5,7 +5,6 @@ export class Timer extends Component {
 
     componentDidMount(){        
         this.props.onRef(this)
-        debugger;
     }
 
     constructor(props) {
@@ -15,7 +14,6 @@ export class Timer extends Component {
             minutes: 0,
             start: 0
         }
-        //this.start = 0;
     }
     format  = (val) => val > 9 ? val : "0" + val
 
@@ -38,7 +36,6 @@ export class Timer extends Component {
             minutes: 0,
             start: 0
         });
-        //this.start = 0;
     }
 
     render () {

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
-import "./components/GameBoard";
-import { GameBoard } from './components/GameBoard';
-import Timer from './containers/Timer';
+import "../components/GameBoard";
+import { GameBoard } from '../components/GameBoard';
+import Timer from './Timer';
 
 const totNum = 36;
 let cardArray = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-gear",  "fa-cube", 
