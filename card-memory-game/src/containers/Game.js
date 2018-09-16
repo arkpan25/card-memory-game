@@ -43,7 +43,7 @@ export class Game extends Component {
 		
 		const cardSelectedId = this.state.selected.splice(0);
 		let clicks = this.state.clicks;	
-		if (++clicks == 1) {
+		if (++clicks === 1) {
 			this.child.startTimer();
 			//debugger;
 		}
