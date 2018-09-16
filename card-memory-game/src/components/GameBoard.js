@@ -2,21 +2,16 @@
 import React from 'react';
 import Card from "./Card";
 
-export const GameBoard=()=> {
+export const GameBoard=(props)=> {
 
-    let deck = ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o", 
-                "fa-anchor", "fa-anchor", "fa-gear", "fa-gear", "fa-cube", "fa-cube", 
-                "fa-leaf", "fa-leaf", "fa-bicycle", "fa-bicycle","fa-bomb", "fa-bomb",
-                "fa-university","fa-university","fa-bank","fa-bank","fa-bug", "fa-bug",
-                "fa-bolt","fa-bolt","fa-bomb","fa-bomb","fa-beer","fa-beer","fa-cab",
-                "fa-cab","fa-flag","fa-flag","fa-flash","fa-flash","fa-car","fa-car"];
-
+    const {deck, selected, pairs, clickHandler} = props;
     return (
         <div>
-            <ul class="deck">               
+            <ul className="deck">               
             {deck.map((card, i) => 
-                <Card  cardName={card}
-                    index={i} id={i} key={i}
+                <Card  cardName={card} isSelected={selected.includes(i)}
+                    isMatch={pairs.includes(i)} id={i} key = {i}
+                    handleClick={clickHandler.bind(this, i)}
                 />         
            )}
             </ul>

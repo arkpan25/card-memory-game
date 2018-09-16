@@ -1,10 +1,17 @@
 import React from 'react';
 
 
-const Card = ({cardName,index,id,key}) => {
+const Card = (props) => {
 
+	const {cardName, id, handleClick, isMatch,isSelected} = props;
+	const turned = isSelected || isMatch ? 'flipInY open show' : '';
+
+	const matched = isMatch ? "match":" ";
 	return (
-			<li><i className={`card fa ${cardName}`} ></i></li>
+		<div id={id} onClick={handleClick.bind(this)}>
+			<li><i className={`card fa grow ${cardName} ${turned} ${matched}`} ></i></li>
+		</div>
+			
 		);
 }
 
