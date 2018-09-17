@@ -14,8 +14,7 @@ let cardArray = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-gear",  "fa-
 				"fa-birthday-cake","fa-imdb","fa-beer","fa-fighter-jet","fa-flag","fa-flash","fa-car"];
 
 export class Game extends Component {
-
-
+	
 	constructor(props) {
 		super(props);
 		this.state = this.initialState();
@@ -50,8 +49,7 @@ export class Game extends Component {
 	 * - Add clicked card id to this.state
 	 * - update total click times in this.state
 	 */
-	cardClickHandler = (cardId) => {
-		
+	cardClickHandler = (cardId) => {		
 		const cardSelectedId = this.state.selected.splice(0);
 		let clicks = this.state.clicks;	
 		if (++clicks === 1) {
@@ -85,7 +83,6 @@ export class Game extends Component {
 	 * - return the picked card array
 	 */
 	pickCards = (num) => {
-
 		const deck = [];
 		let CardCopy = cardArray.slice(0);
 		
@@ -121,11 +118,9 @@ export class Game extends Component {
 			pairs = pairs.concat(cardSelectedId);
 			//debugger;
 			isMatch = true;
-		}
-		
+		}		
 		// Update score according to match status
 		score = this.updateScore(score,DiffficultyLevel,isMatch);
-
 		//debugger;
 		this.setState({
 			selected: [],
@@ -133,8 +128,6 @@ export class Game extends Component {
 			pairs,
 			score
 		});
-
-
 		this.checkEnd(BestScore,score);		
 	}
 
