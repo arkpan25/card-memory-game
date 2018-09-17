@@ -41,8 +41,8 @@ export class Timer extends Component {
     render () {
         const {seconds,minutes} = this.state;
         return (
-                <div id="timer">
-                    <span id="timer-text">Timer: </span>
+                <div id="timer dib">
+                    <span id="timer-text" style = {{color: '#058A8c'}}>Timer: </span>
 			         <label >{minutes}</label>:<label >{seconds}</label>
                 </div>
         )

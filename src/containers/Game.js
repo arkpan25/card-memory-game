@@ -14,7 +14,7 @@ let cardArray = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-gear",  "fa-
 				"fa-birthday-cake","fa-imdb","fa-beer","fa-fighter-jet","fa-flag","fa-flash","fa-car"];
 
 export class Game extends Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = this.initialState();
@@ -182,7 +182,9 @@ export class Game extends Component {
 	    const finalScore = this.state.isOn ? " " : " your is final Score is "  + this.state.score
 		return (
 			<div className = "mt4">
-				<label className = "f1 yellow" >Best Score:<span>{this.state.BestScore}</span></label>
+				<label className = "f1 yellow" >Best Score:
+					<span className = "pl2">{this.state.BestScore}</span>
+				</label>
 				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>
 				<section className="score-panel">
 					<Moves moves = {this.state.moves}/>
