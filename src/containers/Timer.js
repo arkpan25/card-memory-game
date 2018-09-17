@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-
+import PropTypes from 'prop-types';
 
 export class Timer extends Component {
 
@@ -49,6 +49,10 @@ export class Timer extends Component {
         
     }
 
+}
+
+Timer.propTypes = {
+    onRef: PropTypes.func.isRequired
 }
 
 export default Timer;

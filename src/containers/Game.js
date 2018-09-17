@@ -4,7 +4,7 @@ import  GameBoard  from '../components/GameBoard';
 import Moves from "../components/Moves";
 import Score from "../components/Score";
 import Restart from "../components/Restart";
-import DiffficultyLevel from "../components/DiffficultyLevel";
+import DifficultyLevel from "../components/DifficultyLevel";
 import Timer from './Timer';
 import "./Game.css"
 
@@ -25,7 +25,7 @@ export class Game extends Component {
 		let BestScore = localStorage.getItem("BestScore");
 		BestScore = BestScore ? JSON.parse(BestScore) : 0;
 		return {
-			DiffficultyLevel: "Hard",
+			DifficultyLevel: "Hard",
 			deck: this.shuffleDeck(18),
 			isOn: true,
 			moves: 0,
@@ -106,7 +106,7 @@ export class Game extends Component {
 
 		let moves = this.state.moves+1;
 		let pairs = this.state.pairs.splice(0);
-		let {score,BestScore,DiffficultyLevel} = this.state;
+		let {score,BestScore,DifficultyLevel} = this.state;
 		let isMatch = false;
 		//  Find the card name of two id
 		const cardSelected = cardSelectedId.map((id) => {
@@ -120,7 +120,7 @@ export class Game extends Component {
 			isMatch = true;
 		}		
 		// Update score according to match status
-		score = this.updateScore(score,DiffficultyLevel,isMatch);
+		score = this.updateScore(score,DifficultyLevel,isMatch);
 		//debugger;
 		this.setState({
 			selected: [],
@@ -152,17 +152,17 @@ export class Game extends Component {
 		}
 	}
 
-	updateScore = (score, DiffficultyLevel,isMatch) => {
-		return isMatch ? DiffficultyLevel === "Easy" ? score+20 : score + 50 : score - 2; 
+	updateScore = (score, DifficultyLevel,isMatch) => {
+		return isMatch ? DifficultyLevel === "Easy" ? score+20 : score + 50 : score - 2; 
 	}
 	/**
 	 * - Change the DifficultyLevel by changing the number of distinct card on deck.
 	 */
-	changeDifficulty = (DiffficultyLevel) => {
+	changeDifficulty = (DifficultyLevel) => {
         this.restart();
-		if (DiffficultyLevel === "Easy"){
-			this.setState({deck:this.shuffleDeck(9),DiffficultyLevel})
-		} else this.setState({deck:this.shuffleDeck(18),DiffficultyLevel})          
+		if (DifficultyLevel === "Easy"){
+			this.setState({deck:this.shuffleDeck(9),DifficultyLevel})
+		} else this.setState({deck:this.shuffleDeck(18),DifficultyLevel})          
     }
 	/**
 	 * - Shuffle the card array randomly
@@ -188,7 +188,7 @@ export class Game extends Component {
 				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>
 				<section className="score-panel">
 					<Moves moves = {this.state.moves}/>
-					<DiffficultyLevel DiffficultyLevel = {this.state.DiffficultyLevel} 
+					<DifficultyLevel DifficultyLevel = {this.state.DifficultyLevel} 
 									changeDifficulty = {this.changeDifficulty}/>
 					<Score score = {this.state.score}/>
 					<Restart restart = {this.restart}/>

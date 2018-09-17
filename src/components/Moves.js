@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Moves = ({moves}) => {
 
@@ -9,6 +10,10 @@ const Moves = ({moves}) => {
 
     )
 
+}
+
+Moves.propTypes = {
+    moves: PropTypes.number.isRequired
 }
 
 export default Moves;

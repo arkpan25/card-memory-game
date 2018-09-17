@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 const Restart = ({restart}) => {
 
     return (
@@ -10,6 +10,10 @@ const Restart = ({restart}) => {
 
     )
 
+}
+
+Restart.propTypes = {
+	restart: PropTypes.func.isRequired
 }
 
 export default Restart;

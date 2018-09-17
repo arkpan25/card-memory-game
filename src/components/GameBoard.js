@@ -1,11 +1,11 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from "./Card";
 import "./GameBoard.css"
 
-const GameBoard=(props)=> {
+const GameBoard=({deck, selected, pairs, cardClickHandler})=> {
 
-    const {deck, selected, pairs, cardClickHandler} = props;
     return (
         <div>
             <ul className="deck">               
@@ -20,5 +20,12 @@ const GameBoard=(props)=> {
 
     )
 }
+
+GameBoard.propTypes = {
+    deck: PropTypes.array.isRequired,
+    selected: PropTypes.array.isRequired,
+    pairs: PropTypes.array.isRequired,
+    cardClickHandler: PropTypes.func.isRequired
+  };
 
 export default GameBoard;
