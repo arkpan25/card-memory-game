@@ -10,8 +10,8 @@ export class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            seconds: 0,
-            minutes: 0,
+            seconds: "00",
+            minutes: "00",
             start: 0
         }
     }
@@ -41,7 +41,7 @@ export class Timer extends Component {
     render () {
         const {seconds,minutes} = this.state;
         return (
-                <div id="timer">
+                <div id="timer" className = " f2 pa2 mb3">
                     <span id="timer-text">Timer: </span>
 			         <label >{minutes}</label>:<label >{seconds}</label>
                 </div>

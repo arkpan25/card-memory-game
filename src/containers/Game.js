@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import "../components/GameBoard";
-import { GameBoard } from '../components/GameBoard';
+import  GameBoard  from '../components/GameBoard';
+import Panel from "../components/Panel";
 import Timer from './Timer';
 
 const totNum = 36;
@@ -17,7 +18,7 @@ export class Game extends Component {
 	}
 
 	initialState() {
-
+		// Retrieve BestScore in LocalStore
 		let BestScore = localStorage.getItem("BestScore");
 		BestScore = BestScore ? JSON.parse(BestScore) : 0;
 		return {
@@ -33,13 +34,19 @@ export class Game extends Component {
             gameInfo:  ''
 		};
 	}
-
+	/**
+	 * - Restart the Game
+	 */
 	restart = () => {
 		this.child.resetTimer();
 		this.setState(this.initialState());
 	}
-
-	clickHandler = (cardId) => {
+	/**
+	 * - Input: the clicked card's id
+	 * - Add clicked card id to this.state
+	 * - update total click times in this.state
+	 */
+	cardClickHandler = (cardId) => {
 		
 		const cardSelectedId = this.state.selected.splice(0);
 		let clicks = this.state.clicks;	
@@ -47,6 +54,7 @@ export class Game extends Component {
 			this.child.startTimer();
 			//debugger;
 		}
+		// If the card already clicked return directly
 		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)) {
 			return;
 		}
@@ -57,7 +65,7 @@ export class Game extends Component {
 			}, 1000);
 		} 
 		//debugger;
-		this.setState({selected: cardSelectedId,clicks});
+		this.setState({selected: cardSelectedId, clicks});
 		
     }
 
@@ -67,6 +75,11 @@ export class Game extends Component {
 
 	onRef = (ref) => {this.child = ref}
 
+	/**
+	 * - input: the number of distinct card 
+	 * - pick distinct card of num from the pool
+	 * - return the picked card array
+	 */
 	pickCards = (num) => {
 
 		const deck = [];
@@ -83,22 +96,30 @@ export class Game extends Component {
 		return deck;
 	}
 
+	/**
+	 * - Input : Array of two selected card id
+	 * - Check whether two selected card matched
+	 * - Check whether the game is end.
+	 */
 	checkMatch = (cardSelectedId) => {
 
 		let moves = this.state.moves+1;
 		let pairs = this.state.pairs.splice(0);
 		let {score,BestScore,DiffficultyLevel} = this.state;
 		let isMatch = false;
-
+		//  Find the card name of two id
 		const cardSelected = cardSelectedId.map((id) => {
 			return this.state.deck[id];
 		});
-
+		// Check wheter the names are Indentical
 		if(cardSelected[0] === cardSelected[1] && cardSelected.length > 0) {
+			// If they are add the card ids in the pairs in this.state
 			pairs = pairs.concat(cardSelectedId);
 			//debugger;
 			isMatch = true;
 		}
+		
+		// Update score according to match status
 		score = this.updateScore(score,DiffficultyLevel,isMatch);
 
 		//debugger;
@@ -108,22 +129,28 @@ export class Game extends Component {
 			pairs,
 			score
 		});
+
+
 		this.checkEnd(BestScore,score);		
 	}
 
+	/**
+	 * - Check wheter game is end
+	 */
 	checkEnd = (BestScore,score) => {
 		let gameInfo = "";
 		if(this.state.pairs.length === this.state.deck.length) {
 			if (score > BestScore) {
 				BestScore = score;
-				gameInfo = 'Congratulations You Broke the Record !!!';
-			} else gameInfo = 'Congratulations You win !';
+				gameInfo = 'Congratulations You Win and Broke the Record !!!';
+			} else gameInfo = 'Congratulations You Win !';
 			this.setState({
 				isOn:false,
 				gameInfo,
 				BestScore
 			});
 			this.child.timerStop();
+			// persist Bestscore in localStore
 			localStorage.setItem("BestScore",JSON.stringify(this.state.BestScore));
 		}
 	}
@@ -131,14 +158,18 @@ export class Game extends Component {
 	updateScore = (score, DiffficultyLevel,isMatch) => {
 		return isMatch ? DiffficultyLevel === "Easy" ? score+20 : score + 50 : score - 2; 
 	}
-	
+	/**
+	 * - Change the DifficultyLevel by changing the number of distinct card on deck.
+	 */
 	changeDifficulty = (DiffficultyLevel) => {
         this.restart();
 		if (DiffficultyLevel === "Easy"){
 			this.setState({deck:this.shuffleDeck(9),DiffficultyLevel})
 		} else this.setState({deck:this.shuffleDeck(18),DiffficultyLevel})          
     }
-	
+	/**
+	 * - Shuffle the card array randomly
+	 */
 	shuffleDeck = (num) => {
 
 		let deck = this.pickCards(num);
@@ -151,38 +182,17 @@ export class Game extends Component {
 	}
 	render () {
 		//debugger;
-		const gameboard = <GameBoard deck={this.state.deck} 
-                                     clickHandler={this.clickHandler.bind(this)} 
-                                     selected={this.state.selected}
-                                     pairs={this.state.pairs} />
 	    const finalScore = this.state.isOn ? " " : " your is final Score is "  + this.state.score
 		return (
 			<div className = "mt4">
 				<label className = "f1 yellow" >Best Score:<span>{this.state.BestScore}</span></label>
-				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>
-				 <section className="score-panel">
-			          <div className="moves">
-			          	<span className="moves" id="moves">{this.state.moves}</span><span> Moves</span>
-			          </div>
-					  <div>
-					  	<span className = "red pa1" > Diffficulty Level :</span>
-					  	<a onClick={() => this.changeDifficulty("Easy") } name="Easy" 
-                           className=	{`pa2 hover-green black grow pointer 
-						   ${this.state.DiffficultyLevel === "Easy" ? "green underline": " "}`}>Easy</a>
-                        <a onClick={() => this.changeDifficulty("Hard")} name="Hard" 
-                           className={`pa2 hover-red black grow pointer 
-						   ${this.state.DiffficultyLevel === "Easy" ? " ": "red underline"}`}>Hard</a>
-					  </div>
-					  <div>
-						  <span className = "blue">Current Score: </span><label className = "green" >{this.state.score}</label>
-					  </div>
-			          <Timer onRef={this.onRef}/>
-			          <div className="restart" id="restart">
-			        		<span id="restart-text">Restart: </span>
-							<i onClick = {this.restart} className="fa fa-repeat grow-large"></i>
-			          </div>
-        		</section>	
-			    {gameboard}			
+				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>								
+				<Panel DiffficultyLevel = {this.state.DiffficultyLevel} score = {this.state.score}
+						moves = {this.state.moves} changeDifficulty = {this.changeDifficulty}
+						restart = {this.restart} />
+				<Timer onRef={this.onRef}/>				
+			    <GameBoard deck={this.state.deck} cardClickHandler={this.cardClickHandler.bind(this)} 
+                                selected={this.state.selected}  pairs={this.state.pairs} />		
 			</div>
 			)
 	}
