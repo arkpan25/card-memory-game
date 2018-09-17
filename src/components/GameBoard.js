@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Card from "./Card";
+import "./GameBoard.css"
 
 const GameBoard=(props)=> {
 

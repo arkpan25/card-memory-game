@@ -3,6 +3,7 @@ import "../components/GameBoard";
 import  GameBoard  from '../components/GameBoard';
 import Panel from "../components/Panel";
 import Timer from './Timer';
+import "./Game.css"
 
 const totNum = 36;
 let cardArray = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-gear",  "fa-cube", 
