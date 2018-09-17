@@ -14,6 +14,9 @@ Rules:
 3.	Randomize the ‘cards’ layout every game
 4.	The game grid must be at least 6x6 cards
 
+For the Easy level there are 9 distinct cards thus two pairs for each kind in deck.
+For the Easy level there are 18 distinct cards thus one pair for each kind in deck.
+
 Demo Deployed on Heroku : https://calm-journey-23239.herokuapp.com/
 
 
