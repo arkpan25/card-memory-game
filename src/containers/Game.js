@@ -1,7 +1,10 @@
 import React,{Component} from 'react';
 import "../components/GameBoard";
 import  GameBoard  from '../components/GameBoard';
-import Panel from "../components/Panel";
+import Moves from "../components/Moves";
+import Score from "../components/Score";
+import Restart from "../components/Restart";
+import DiffficultyLevel from "../components/DiffficultyLevel";
 import Timer from './Timer';
 import "./Game.css"
 
@@ -187,11 +190,15 @@ export class Game extends Component {
 		return (
 			<div className = "mt4">
 				<label className = "f1 yellow" >Best Score:<span>{this.state.BestScore}</span></label>
-				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>								
-				<Panel DiffficultyLevel = {this.state.DiffficultyLevel} score = {this.state.score}
-						moves = {this.state.moves} changeDifficulty = {this.changeDifficulty}
-						restart = {this.restart} />
-				<Timer onRef={this.onRef}/>				
+				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>
+				<section className="score-panel">
+					<Moves moves = {this.state.moves}/>
+					<DiffficultyLevel DiffficultyLevel = {this.state.DiffficultyLevel} 
+									changeDifficulty = {this.changeDifficulty}/>
+					<Score score = {this.state.score}/>
+					<Restart restart = {this.restart}/>
+					<Timer onRef={this.onRef}/>											
+				</section>										
 			    <GameBoard deck={this.state.deck} cardClickHandler={this.cardClickHandler.bind(this)} 
                                 selected={this.state.selected}  pairs={this.state.pairs} />		
 			</div>
