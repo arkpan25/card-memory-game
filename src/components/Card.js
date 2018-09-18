@@ -6,10 +6,9 @@ const Card = ({cardName, id, handleClick, isMatch,isSelected} ) => {
 	const turned = isSelected || isMatch ? 'flipInY open show' : '';
 	const matched = isMatch ? "match":" ";
 	return (
-		<div id={id} onClick={handleClick.bind(this)}>
+		<div id={id} onClick={() => handleClick(id)}>
 			<li><i className={`card fa grow ${cardName} ${turned} ${matched}`} ></i></li>
-		</div>
-			
+		</div>			
 		);
 }
 

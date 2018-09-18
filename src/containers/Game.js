@@ -194,7 +194,7 @@ export class Game extends Component {
 					<Restart restart = {this.restart}/>
 					<Timer onRef={this.onRef}/>											
 				</section>										
-			    <GameBoard deck={this.state.deck} cardClickHandler={this.cardClickHandler.bind(this)} 
+			    <GameBoard deck={this.state.deck} cardClickHandler={this.cardClickHandler} 
                                 selected={this.state.selected}  pairs={this.state.pairs} />		
 			</div>
 			)
