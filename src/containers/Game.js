@@ -61,7 +61,6 @@ export class Game extends Component {
 			return;
 		}
 		cardSelectedId.push(cardId);
-		debugger;
 		if(cardSelectedId.length === 2) {
 			this.checkTime = setTimeout(() => {
 				this.checkMatch(cardSelectedId);
@@ -116,12 +115,10 @@ export class Game extends Component {
 		if(cardSelected[0] === cardSelected[1] && cardSelected.length > 0) {
 			// If they are add the card ids in the pairs in this.state
 			pairs = pairs.concat(cardSelectedId);
-			//debugger;
 			isMatch = true;
 		}		
 		// Update score according to match status
 		score = this.updateScore(score,DifficultyLevel,isMatch);
-		//debugger;
 		this.setState({
 			selected: [],
 			moves,
@@ -178,7 +175,6 @@ export class Game extends Component {
 
 	}
 	render () {
-		//debugger;
 	    const finalScore = this.state.isOn ? " " : " your is final Score is "  + this.state.score
 		return (
 			<div className = "mt4">
