@@ -18,7 +18,7 @@ const DifficultyLevel = ({DifficultyLevel,changeDifficulty}) => {
 }
 
 DifficultyLevel.propTypes = {
-    DifficultyLevel: PropTypes.func.isRequired,
+    DifficultyLevel: PropTypes.string.isRequired,
     changeDifficulty: PropTypes.func.isRequired
 }
 

@@ -54,19 +54,19 @@ export class Game extends Component {
 		let clicks = this.state.clicks;	
 		if (++clicks === 1) {
 			this.child.startTimer();
-			//debugger;
 		}
 		// If the card already clicked return directly
 		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)) {
+			this.setState({selected:cardSelectedId});
 			return;
 		}
 		cardSelectedId.push(cardId);
+		debugger;
 		if(cardSelectedId.length === 2) {
 			this.checkTime = setTimeout(() => {
 				this.checkMatch(cardSelectedId);
 			}, 1000);
 		} 
-		//debugger;
 		this.setState({selected: cardSelectedId, clicks});
 		
     }
