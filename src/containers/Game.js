@@ -42,7 +42,7 @@ export class Game extends Component {
 		this.setState(this.initialState());
 	}
 	/**
-	 * - Input: the clicked card's id
+	 * - @param: the clicked card's id
 	 * - Add clicked card id to this.state
 	 * - update total click times in this.state
 	 */
@@ -74,7 +74,7 @@ export class Game extends Component {
 	onRef = (ref) => {this.child = ref}
 
 	/**
-	 * - input: the number of distinct card 
+	 * - @param: the number of distinct card 
 	 * - pick distinct card of num from the pool
 	 * - return the picked card array
 	 */
@@ -94,7 +94,7 @@ export class Game extends Component {
 	}
 
 	/**
-	 * - Input : Array of two selected card id
+	 * - @param : Array of two selected card id
 	 * - Check whether two selected card matched
 	 * - Check whether the game is end.
 	 */
