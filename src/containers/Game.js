@@ -5,6 +5,7 @@ import Moves from "../components/Moves";
 import Score from "../components/Score";
 import Restart from "../components/Restart";
 import DifficultyLevel from "../components/DifficultyLevel";
+import ErrorBoundry from "../components/ErrorBoundry";
 import Timer from './Timer';
 import "./Game.css"
 import {totNum, cardArray} from "../Contants";
@@ -173,22 +174,28 @@ export class Game extends Component {
 	}
 	render () {
 	    const finalScore = this.state.isOn ? " " : " your is final Score is "  + this.state.score
+		const {BestScore, gameInfo, deck, selected, pairs, moves, score} = this.state;
 		return (
 			<div className = "mt4">
 				<label className = "f1 yellow" >Best Score:
-					<span className = "pl2">{this.state.BestScore}</span>
+					<span className = "pl2">{BestScore}</span>
 				</label>
-				<div className='gameInfo b red'>{ this.state.gameInfo + finalScore}</div>
+				<div className='gameInfo b red'>{gameInfo + finalScore}</div>
 				<section className="score-panel">
-					<Moves moves = {this.state.moves}/>
-					<DifficultyLevel DifficultyLevel = {this.state.DifficultyLevel} 
-									changeDifficulty = {this.changeDifficulty}/>
-					<Score score = {this.state.score}/>
-					<Restart restart = {this.restart}/>
-					<Timer onRef={this.onRef}/>											
-				</section>										
-			    <GameBoard deck={this.state.deck} cardClickHandler={this.cardClickHandler} 
-                                selected={this.state.selected}  pairs={this.state.pairs} />		
+					<ErrorBoundry>
+						<Moves moves = {moves}/>
+						<DifficultyLevel DifficultyLevel = {this.state.DifficultyLevel} 
+										changeDifficulty = {this.changeDifficulty}/>
+						<Score score = {score}/>
+						<Restart restart = {this.restart}/>
+						<Timer onRef={this.onRef}/>			
+					</ErrorBoundry>												
+				</section>	
+				<ErrorBoundry>
+					<GameBoard deck={deck} cardClickHandler={this.cardClickHandler} 
+                           selected={selected} pairs={pairs} />	
+				</ErrorBoundry>									
+	
 			</div>
 			)
 	}
