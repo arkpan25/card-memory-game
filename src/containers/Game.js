@@ -54,7 +54,8 @@ export class Game extends Component {
 			this.child.startTimer();
 		}
 		// If the card already clicked return directly
-		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)) {
+		if(cardSelectedId.includes(cardId)||this.state.pairs.includes(cardId)||
+		cardSelectedId.length === 2) {
 			this.setState({selected:cardSelectedId});
 			return;
 		}
